@@ -13,10 +13,14 @@ class shoppingCardItens {
         return `<tr>
                 <th>${this.name}</th>
                 <td>${this.unityPrice}</td>
-                <td><span>QTY</span><input type='number' value='${this.qty}'></input></td>
+                <td><span>QTY</span><input class="input-qty" type='number' value='${this.qty}'></input></td>
                 <td><button>Cancel</button></td>
                 <td>${this.totalItem()}</td>
-                <tr>`
+                </tr>`
+    }
+
+    includeToMainTable() {
+        $('#main-table').append( this.lineTable() );
     }
 }
 
@@ -27,8 +31,8 @@ let itensDefault = [new shoppingCardItens("Salmon" , 60 , 2),
                     new shoppingCardItens("Beef" , 40, 4) ];
 
 let loadDefaultData = function() {
-    itensDefault.forEach( (itemDefault) => { 
-        $('#main-table').append( itemDefault.lineTable() );
+    itensDefault.forEach( function(itemDefault) { 
+       itemDefault.includeToMainTable( itemDefault.lineTable() );
     }) 
 }
 
@@ -37,18 +41,31 @@ let includeItem = function (event) {
     let newName = $(this).children('[name = name-item]').val();
     let newUnitaryPice = $(this).children('[name = unity-price]').val();
     let newQty = $(this).children('[name = qty]').val();
-    //console.log(newName, newUnitaryPice, newQty);
     let myNewItem = new shoppingCardItens(newName, newUnitaryPice, newQty);
-    $('#main-table').append( myNewItem.lineTable() );
-    console.log(myNewItem);
+    myNewItem.includeToMainTable( myNewItem.lineTable() );
 }
 
-let afterLoad = function() {
-    loadDefaultData();
-    $('#add-item').on('submit' , includeItem);
+let updateQty = function() {
+    let currentRow = $(this).closest('tr');
+    let name = currentRow.children('th').html();
+    let unityPrice = currentRow.children('td').html();
+    
+    if($(this).val() < 0) {
+        $(this).val(0);
+    }    
+    let qty = $(this).val();
+
+    let modifyItem = new shoppingCardItens(name, unityPrice, qty);    
+    currentRow.replaceWith( modifyItem.lineTable() );
 }
+
+
 
 //------------------MAIN-----------------------
 
-$(document).ready(afterLoad);
+$(document).ready( function(){
+    loadDefaultData();
+    $('#add-item').on('submit' , includeItem);
+    $('.input-qty').on('input' , updateQty);
+});
 
