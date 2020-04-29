@@ -32,8 +32,23 @@ let loadDefaultData = function() {
     }) 
 }
 
-let afterLoad = function() {
-    loadDefaultData();
+let includeItem = function (event) {
+    event.preventDefault();
+    let newName = $(this).children('[name = name-item]').val();
+    let newUnitaryPice = $(this).children('[name = unity-price]').val();
+    let newQty = $(this).children('[name = qty]').val();
+    //console.log(newName, newUnitaryPice, newQty);
+    let myNewItem = new shoppingCardItens(newName, newUnitaryPice, newQty);
+    $('#main-table').append( myNewItem.lineTable() );
+    console.log(myNewItem);
 }
 
+let afterLoad = function() {
+    loadDefaultData();
+    $('#add-item').on('submit' , includeItem);
+}
+
+//------------------MAIN-----------------------
+
 $(document).ready(afterLoad);
+
