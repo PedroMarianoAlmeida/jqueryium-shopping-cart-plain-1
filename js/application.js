@@ -20,13 +20,14 @@ class shoppingCardItens {
     lineTable() {
         return `<tr>
                 <th>${this.name}</th>
-                <td>${this.unityPrice}</td>
+                <td class='unity-price-item'>${this.unityPrice}</td>
                 <td><span>QTY</span><input class="input-qty" type='number' value='${this.qty}'></input></td>
                 <td><button class="delete-item">Cancel</button></td>
-                <td>${formatter.format( this.totalItem() ) }</td>
+                <td class='total-item-USD'>${formatter.format( this.totalItem() ) }</td>
                 <td class='total-item' style='display:none;'>${this.totalItem()}</td>
                 </tr>`
-    }
+                //The <td class='total-item'> is never exibit on screen, but is used to calculate the total Price in updatingTotalValue()
+            }
 
     includeToMainTable() {
         $('#main-table').append( this.lineTable() );
@@ -70,18 +71,17 @@ var timeOut;
 let updateQty = function() {
     clearTimeout(timeOut);
     
-    //This need to be outside because of this reference
-    let currentRow = $(this).closest('tr');
-    let qty = $(this).val();
-    if(qty <= 1) {
-        $(this).val(1);
-    }
+    let currentRow = $(this).closest('tr'); //Have to be here (and not inside the function of setTimeout) to grab the THIS value
 
     timeOut = setTimeout( function() {        
-        let name = currentRow.children('th').html();
-        let unityPrice = currentRow.children('td').html();           
-        let modifyItem = new shoppingCardItens(name, unityPrice, qty);    
-        currentRow.replaceWith( modifyItem.lineTable() );
+        let qty = currentRow.find('.input-qty');
+        if(qty.val() < 0) {
+            qty.val(0);
+        }
+        let unitaryPrice = currentRow.children('.unity-price-item').text()
+        let newTotalItem = unitaryPrice * qty.val();
+        currentRow.children('.total-item').text(newTotalItem);       
+        currentRow.children('.total-item-USD').text(formatter.format(newTotalItem));  
         updatingTotalValue();
     } , 500);   
 }
