@@ -86,7 +86,7 @@ let deleteItem = function () {
 $(document).ready( function(){
     loadDefaultData();
     $('#add-item').on('submit' , includeItem);
-    $('.input-qty').on('input' , updateQty); //Something is wrong, when I tried to change a second time the same element this line doesn't work
-    $('.delete-item').on('click' , deleteItem);
+    $(document).on('input', '.input-qty', updateQty);
+    $(document).on('click' , '.delete-item' , deleteItem);
 });
 
