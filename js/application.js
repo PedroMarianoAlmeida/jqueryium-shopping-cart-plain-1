@@ -45,23 +45,29 @@ let includeItem = function (event) {
     myNewItem.includeToMainTable( myNewItem.lineTable() );
 }
 
+var timeOut;
 let updateQty = function() {
-    let currentRow = $(this).closest('tr');
-    let name = currentRow.children('th').html();
-    let unityPrice = currentRow.children('td').html();
+    clearTimeout(timeOut);
     
-    if($(this).val() < 0) {
-        $(this).val(0);
-    }    
+    //This need to be outside because of this reference
+    let currentRow = $(this).closest('tr');
     let qty = $(this).val();
+    if(qty <= 1) {
+        $(this).val(1);
+    }
 
-    let modifyItem = new shoppingCardItens(name, unityPrice, qty);    
-    currentRow.replaceWith( modifyItem.lineTable() );
+    timeOut = setTimeout( function() {        
+        let name = currentRow.children('th').html();
+        let unityPrice = currentRow.children('td').html();           
+        let modifyItem = new shoppingCardItens(name, unityPrice, qty);    
+        currentRow.replaceWith( modifyItem.lineTable() );
+    } , 500);
+    
+
 }
 
-
-
 //------------------MAIN-----------------------
+
 
 $(document).ready( function(){
     loadDefaultData();
