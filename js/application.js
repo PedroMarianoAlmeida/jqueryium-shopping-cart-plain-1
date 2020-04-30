@@ -14,7 +14,7 @@ class shoppingCardItens {
                 <th>${this.name}</th>
                 <td>${this.unityPrice}</td>
                 <td><span>QTY</span><input class="input-qty" type='number' value='${this.qty}'></input></td>
-                <td><button>Cancel</button></td>
+                <td><button class="delete-item">Cancel</button></td>
                 <td>${this.totalItem()}</td>
                 </tr>`
     }
@@ -61,9 +61,11 @@ let updateQty = function() {
         let unityPrice = currentRow.children('td').html();           
         let modifyItem = new shoppingCardItens(name, unityPrice, qty);    
         currentRow.replaceWith( modifyItem.lineTable() );
-    } , 500);
-    
+    } , 500);   
+}
 
+let deleteItem = function () {
+    $(this).closest('tr').remove();
 }
 
 //------------------MAIN-----------------------
@@ -73,5 +75,6 @@ $(document).ready( function(){
     loadDefaultData();
     $('#add-item').on('submit' , includeItem);
     $('.input-qty').on('input' , updateQty);
+    $('.delete-item').on('click' , deleteItem);
 });
 
