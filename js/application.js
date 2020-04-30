@@ -1,3 +1,11 @@
+//Convert a nuber to currency USD format. Found in https://flaviocopes.com/how-to-format-number-as-currency-javascript/
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
+//-----------------------------------------------------------
+
 class shoppingCardItens {
     constructor (name, unityPrice, qty) {
         this.name = name;
@@ -15,7 +23,8 @@ class shoppingCardItens {
                 <td>${this.unityPrice}</td>
                 <td><span>QTY</span><input class="input-qty" type='number' value='${this.qty}'></input></td>
                 <td><button class="delete-item">Cancel</button></td>
-                <td class='total-item'>${this.totalItem()}</td>
+                <td>${formatter.format( this.totalItem() ) }</td>
+                <td class='total-item' style='display:none;'>${this.totalItem()}</td>
                 </tr>`
     }
 
@@ -30,7 +39,7 @@ let updatingTotalValue = function() {
         sum += Number( $(this).text() );
     })
 
-    $('#total-price').text(sum);
+    $('#total-price').text( formatter.format(sum) );
 }
 
 let itensDefault = [new shoppingCardItens("Salmon" , 60 , 2),
