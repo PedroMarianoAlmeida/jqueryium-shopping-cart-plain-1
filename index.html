@@ -21,29 +21,34 @@
     <title>Shopping Card</title>
   </head>
   <body>
-    <h1>Shopping Card</h1>
+    <div class='container'>
 
-    <table id='main-table' class='table'>       
+      <h1>Shopping Card</h1>
 
-    </table>
+      <table id='main-table' class='table'>       
+  
+      </table>
+  
+      <form id='add-item'> 
+        <input type="text" placeholder="Name Item" name="name-item" required>
+        <input type="number" placeholder="Unitary Price" name='unity-price' required>
+        <input type="number" placeholder="QTY" name='qty' min='0' required>
+        <button>Create</button>
+      </form>
+      <h2>Total Price:</h2>
+      <h3 id='total-price'></h3>
 
-    <form id='add-item'> 
-      <input type="text" placeholder="Name Item" name="name-item" required>
-      <input type="number" placeholder="Unitary Price" name='unity-price' required>
-      <input type="number" placeholder="QTY" name='qty' min='0' required>
-      <button>Create</button>
-    </form>
-    <h2>Total Price:</h2>
-    <h3 id='total-price'></h3>
+    </div>
+
     
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <!-- Popper JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 
   </body>

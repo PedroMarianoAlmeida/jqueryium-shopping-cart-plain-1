@@ -21,7 +21,7 @@ class shoppingCardItens {
         return `<tr>
                 <th>${this.name}</th>
                 <td class='unity-price-item'>${this.unityPrice}</td>
-                <td><span>QTY</span><input class="input-qty" type='number' value='${this.qty}' min='0'></input></td>
+                <td><span>QTY</span><input class="input-qty ml-2" type='number' value='${this.qty}' min='0'></input></td>
                 <td><button class="delete-item">Cancel</button></td>
                 <td class='total-item-USD'>${formatter.format( this.totalItem() ) }</td>
                 <td class='total-item' style='display:none;'>${this.totalItem()}</td>
